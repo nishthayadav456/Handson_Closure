@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <p>*CLOSURE HANDSON*</p>
+    <h3>Q1.
+        <pre>
+            function counter(){
+            var counter = 0;
+        
+            function IncreaseCounter() {
+                return counter += 1;
+            };
+        
+            return IncreaseCounter;
+        }
+        
+        var counter = counter();
+        alert(counter());
+        alert(counter());
+        alert(counter());
+        alert(counter());
+    </pre>
+    </h3>
+    <b>Output-1,2 ,3,4</b><br>
+    In this function called 'counter' which creates a closure to maintain a variable counter. Inside the counter
+    function, there is another function
+    called 'IncreaseCounter' that increments the counter variable by 1 and returns its value.
+    By invoking counter() and assigning it to a variable called 'counter', we create an instance of the IncreaseCounter
+    function with its own 'counter'variable. Each time we call counter(),
+    it will increment and return the value of its 'counter' variable.
+    therefore, when the code executes alert(counter()) four times, it will display the values 1, 2, 3, and 4 in the
+    alert .
+    <hr>
+    <h3>Q2.
+        <pre>
+        let count = 0;
+(function () {
+  if (count === 0) {
+    let count = 1;
+    console.log(count); // What is logged?
+  }
+  console.log(count); // What is logged?
+})();
+    </pre>
+    </h3>
+    <b>Output-1and 0</b><br>
+    First statement let count = 0 declares a variable count. <br>
+   immediate() Is a closure that captures the count variable from the outer scope. Inside function scope immediate() count is equal to 0.
+However, inside this condition, another command let count = 1 announces count a local variable that overwrites count from the outer scope. 
+The first console.log(count) return the value '1'.<br>
+The second console.log(count) return the value '0',here the count variable is accessible from the outer scope.
+    <hr>
+    <h3>Q3.
+        <pre>
+ for (var i = 0; i < 3; i++) {
+    setTimeout(function log() {
+      console.log(i); // What is logged?
+    }, 1000);
+ }</pre>
+    </h3><br>
+    <b>Output- 3,3,3</b><br>
+     The code defines a for loop to () iterates 3 times. During each iteration, a new function is created log()which captures the variable 'i'
+     setTimout()  plans execution log() in 1second. when the setTimeout functions execute and try to log the value of 'i', they will all access the same
+   variable 'i' in the outer scope . Therefore, the logged output will be 3 for all three iterations of the loop. Then the output shows
+    3 at 3 times.
+    <hr>
+    <h3>Q4.Write a code to calculate area of a rectangle using inner function. In this case outer function should accept
+        parameter length and inner function
+        should accept parameter breadth.</h3>
+    <pre>
+        function calculateArea(length) {
+            function innerFunction(breadth) {
+              return length * breadth;
+            }
+          
+            return innerFunction;
+          }
+          
+          var area1 = calculateArea(12);
+          var area2 = area1(16);
+          
+          console.log(area2); 
+          
+     </pre>
+    <b>Output-192</b><br>
+    The 'calculateArea' function is the outer function that accepts the 'length' parameter. Inside the 'calculateArea'
+    function, there is an inner
+    function calledinnerFunctio that accepts the 'breadth' parameter. This inner function multiplies the 'length' and
+    'breadth' to calculate the
+    area of the rectangle.<br>
+    When we call calculateArea(12), it returns the innerFunction which is assigned to the variable 'area1'. Then, I can
+    use 'area1'
+    as a function by passing the 'breadth' value to calculate the area. In this case, area2 = area1(16) calculates the
+    area of a rectangle with
+    a length of 12 and breadth of 16.
+    <hr>
+    <h3>Q5.Take a variable in outer function and create an inner function to increase the counter every time it is
+        called.</h3>
+        <pre>
+            function Counter() {
+                var counter = 0;
+            
+                function IncreaseCounter() {
+                    return counter += 1;
+                };
+            
+                return IncreaseCounter;
+            }
+            
+            var counter = Counter();
+            console.log(counter());
+            console.log(counter()); 
+            console.log(counter()); 
+            console.log(counter());
+        </pre>
+    <b>Output-1,2,3,4</b><br>
+   Here, Outer function Counter returns the reference of inner function IncreaseCounter(). IncreaseCounter increases the outer variable counter to one.
+     So function call inner function multiple time will increase the counter to one each time.Closure is valid in multiple levels of inner functions.
+    <hr>
+    <h3>Q6.
+        <pre>
+"Print Output"
+  var a = 12;
+(function (){
+  alert(a);
+  })();
+</pre>
+    </h3>
+    The code defines a variable a with a value of 12.
+Inside the immediately-invoked function expression (IIFE), the code calls alert(a). Since the variable a is accessible within the scope of the IIFE,
+ the alert function displays the value of a, which is 12.Therefore, when the code is executed, an alert box will appear displaying the number 12.
+<hr>
+<h3>Q7.
+    <pre>
+         var a = 10;
+        var x = (function () {
+         var a = 12;
+          return function () {
+          alert(a);
+             };
+          })();
+          x();
+    </pre>
+</h3>
+<b>Output-12</b><br>
+Firstly I take a variable 'a' having a value 10.
+Inside the immediately-invoked function expression , there is another variable 'a 'having a value of 12. This inner a variable is in a
+ different scope than the outer a variable.
+The IIFE returns an anonymous function as its result, which is assigned to the variable x.
+When x() is called, it executes the returned function from the IIFE. Since the returned function has access to the inner a variable, it alerts 
+the value of a, which is 12.
+Therefore, when the code is executed, an alert box will appear displaying the number 12.
+<hr>
+<h3>Q8.
+    <pre>
+        var globalVar = "xyz";
+
+(function outerFunc(outerArg) {
+    var outerVar = 'a';
+    
+    (function innerFunc(innerArg) {
+    var innerVar = 'b';
+    
+    console.log(
+        "outerArg = " + outerArg + "\n" +
+        "innerArg = " + innerArg + "\n" +
+        "outerVar = " + outerVar + "\n" +
+        "innerVar = " + innerVar + "\n" +
+        "globalVar = " + globalVar);
+    
+    })(456);
+})(123);
+    </pre>
+
+</h3>
+Output-outerArg = 123<br>
+    innerArg = 456<br>
+    outerVar = a<br>
+    innerVar = b<br>
+    globalVar = xyz</b><br>
+The code defines an immediately-invoked function expression  called outerFunc that takes an argument 'outerArg' with a value of 123.
+Inside outerFunc, there is another IIFE called innerFunc that takes an argument 'innerArg' with a value of 456.
+Inside innerFunc, there are local variables innerVar with a value of 'b' and outerVar with a value of 'a'. The console.log statement logs the values of outerArg,
+ innerArg, outerVar, innerVar, and globalVar.
+Since globalVar is declared outside of any function, it is accessible inside both outerFunc and innerFunc. Therefore, it has a value of 
+'xyz' in both scopes.
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
